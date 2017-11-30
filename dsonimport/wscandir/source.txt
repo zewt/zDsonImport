@@ -1,0 +1,12 @@
+Built for Windows from https://github.com/benhoyt/scandir v1.2.  Building this is annoying:
+
+- Python modules only build with VC2013, not 2015.
+- Install Python 2.7 for Windows.
+- Run SET VS90COMNTOOLS=%VS120COMNTOOLS% to work around "Unable to find vcvarsall.bat".
+- "C:\Program Files\Python27\python.exe" setup.py build
+
+On other OS's where this isn't built it'll use the fallback.  This optimization is mostly
+important on Windows, so that's OK.
+
+
+This is renamed to "wscandir" to avoid confusion with any scandir installed by the system.

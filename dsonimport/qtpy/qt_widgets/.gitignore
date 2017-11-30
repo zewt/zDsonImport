@@ -1,0 +1,2 @@
+# *.py is ignored in the parent directory, since they're generated, but scripts in this directory shouldn't be.
+!*.py
