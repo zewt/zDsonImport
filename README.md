@@ -8,6 +8,9 @@ I'm releasing this in case somebody finds it useful, but I don't plan to do furt
 work on it.  [DazToMaya](https://www.DAZ3D.com/daz-to-maya) (untested) might be better
 maintained and supported.  This is only tested with Maya 2018.
 
+This requires the [zMayaTools](https://github.com/zewt/zMayaTools) plugin for zRigHandle
+and zOBBTransform.
+
 Introduction
 ------------
 
@@ -26,8 +29,6 @@ Some features:
 - Grafts
 - Arnold materials
 - Multiple UV sets
-
-Automatic rigging requires the [zRigHandle plugin](https://github.com/zewt/zRigHandle).
 
 Installation
 ------------
