@@ -2785,3 +2785,4 @@ class DSONImporter(object):
             self.progress.hide()
             pm.waitCursor(state=False)
 
+

@@ -33,12 +33,8 @@ Some features:
 Installation
 ------------
 
-In your Maya scripts directory, eg. **Documents\maya\2018\scripts**, create userSetup.mel if
-necessary, and add:
-
-    python "execfile('C:/Users/me/Documents/maya/zDsonImport/load_zDsonImport.py')";
-
-supplying the path to zDsonImport.  This will add menu items to the File menu.
+Run install.bat, and then enable the zDsonImport plugin in Maya's Plug-In Manager.
+This will add menu items to the File menu.
 
 Basic usage
 -----------
