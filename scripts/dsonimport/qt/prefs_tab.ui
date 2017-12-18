@@ -38,19 +38,6 @@
      </widget>
     </item>
     <item>
-     <widget class="QCheckBox" name="create_twist_rigs">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Create twist rigs</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QCheckBox" name="end_joints">
       <property name="text">
        <string>Create end joints</string>

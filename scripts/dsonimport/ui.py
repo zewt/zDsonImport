@@ -612,10 +612,6 @@ pref_booleans = {
     # to a full T-pose, which is easier for rigging.
     'straighten_pose': True,
 
-    # If true, hide the twist joints on arms and legs and replace them with a twist
-    # rig to make them act like a simple joint.
-    'create_twist_rigs': True,
-
     # If true, a HumanIK rig will be created.
     'create_hik_rig': True,
 

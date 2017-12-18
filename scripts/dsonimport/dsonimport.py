@@ -2500,10 +2500,8 @@ class DSONImporter(object):
                 # Connect rotation normally.
                 mayadson.set_attr_to_prop_vector(prop, rotate_attr, dson_to_maya_attrs=rotation_props)
 
-            # Only make scale dynamic if it won't be hooked up to a twist rig.
             prop = dson_node.get_property('scale')
-            dynamic_scale = prop.node.get_value('name') not in rigging.get_twist_rig_asset_names()
-            mayadson.set_attr_to_prop_vector(prop, dson_node.maya_node.attr('scale'), dson_to_maya_attrs=('x', 'y', 'z'), dynamic=dynamic_scale)
+            mayadson.set_attr_to_prop_vector(prop, dson_node.maya_node.attr('scale'), dson_to_maya_attrs=('x', 'y', 'z'), dynamic=True)
 
     def post_cleanup(self):
         """
@@ -2752,9 +2750,6 @@ class DSONImporter(object):
 
         # Straighten t-poses.  Do this before creating twist rigs.
         rigging.straighten_poses(self.env)
-
-        # If enabled, create twist joint rigs.
-        rigging.create_twist_rigs(self.env)
 
         # Store info about each Maya node that corresponds to a DSON node.  We do this late, so we
         # don't have to fix this up in places where we replace one Maya node with another.

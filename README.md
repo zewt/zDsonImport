@@ -220,12 +220,6 @@ pose to a strict T-pose.  This is required for auto-rigging.
 Hide joints associated with the face.  These are normally controlled with pose modifiers,
 and since there are a huge number of joints in the face it's very busy in the viewport.
 
-- Create twist rigs
-
-DAZ3D characters have twist joints on the arms and legs.  "Create twist rigs" will automatically
-rig these to follow the corresponding twist.  This is recommended over using HumanIK twist
-joints and should be left enabled.
-
 - Create end joints
 
 DAZ3D character skeletons define bones, with a starting point and a length, rather than defining
