@@ -1299,6 +1299,11 @@ class Helpers(object):
 
             asset = dson_file.add_node(asset_node, 'modifier', root_node=env.library)
 
+            # Don't create this if it already exists.  Sometimes there are FID modifiers that
+            # get loaded and sometimes there aren't, and we don't want to create a second.
+            if dson_file.env.scene.get_url('#%s' % asset_node['id'], default=None) is not None:
+                continue
+
             instance_node = {
                 'id': node_name,
                 'name': node_name,
