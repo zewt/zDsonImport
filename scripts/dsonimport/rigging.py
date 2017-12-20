@@ -133,11 +133,6 @@ def straighten_poses(env):
 
                 total_angle /= len(end_joints)
 
-                # If the angle is too wide, something is probably wrong.  Stop rather than twisting
-                # a figure into a weird shape.
-                if angle < -45 or angle > 45:
-                    raise RuntimeError('Unexpected angle while orienting joint %s to %s: %f' % (j1.maya_node, j2.maya_node, angle))
-
                 rotate = [0,0,0]
                 rotate[rotate_axis_idx] = -angle
                 pm.xform(j1.maya_node, ws=True, r=True, ro=rotate)
