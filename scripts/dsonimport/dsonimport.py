@@ -1742,9 +1742,24 @@ class DSONImporter(object):
 
             joint_bindings = []
             for dson_joint, (binding_joint, dson_geometry_node) in joints_to_apply.items():
-                # An array of source vertex indices and their weights:
-                node_weights = binding_joint['node_weights/values'].value
-                assert binding_joint['node_weights/count'].value == len(node_weights)
+                # An array of source vertex indices and their weights.
+                #
+                # One of node_weights, scale_weights or local_weights/(x,y,z) will exist.  node_weights
+                # is regular skinning, which is used by G3.  This is the only weight type that will translate
+                # fully.
+                #
+                # scale_weights and local_weights are a different sort of weighting.  It won't translate
+                # perfectly, but only G2 seems to use this, and we just import scale_weights as regular
+                # weighting as a fallback rather than not working at all.
+                for weight_type in ('node_weights', 'scale_weights'):
+                    if weight_type in binding_joint:
+                        weight_array = binding_joint[weight_type]
+                        break
+                else:
+                    raise RuntimeError('Skinned geometry %s doesn\'t use a supported skinning type' % binding_joint)
+
+                node_weights = weight_array['values'].value
+                assert weight_array['count'].value == len(node_weights)
 
                 # Get the Maya node that we created for this joint.
                 maya_node = dson_joint.maya_node
