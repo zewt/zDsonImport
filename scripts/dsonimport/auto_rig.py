@@ -357,7 +357,13 @@ class AutoRig(object):
         self.node_names_for_controls[-1:-1] = [item['name'] for item in self.joint_based_controls]
         self.node_names_for_controls[-1:-1] = sorted(self.face_control_positions.keys())
 
-        top_nodes = find_figures_in_scene(only_asset_names=['Genesis3Male', 'Genesis3Female'])
+        supported_figure_types = [
+            'Genesis3Male',
+            'Genesis3Female',
+            'Genesis8Male',
+            'Genesis8Female',
+        ]
+        top_nodes = find_figures_in_scene(only_asset_names=supported_figure_types)
 
         # We only actually expect a single figure in the scene.
         if len(top_nodes) > 1:
