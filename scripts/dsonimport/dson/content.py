@@ -316,7 +316,7 @@ class AssetCache(object):
             json_data = json.loads(data)
 
             # Check again, in case the fast path check above failed.
-            if json_data['asset_info']['type'] != 'modifier':
+            if json_data['asset_info'].get('type') != 'modifier':
                 return
 
             # Find modifiers and the asset they apply to.  We only care about the parent of the modifier.
@@ -398,7 +398,7 @@ class AssetCache(object):
             'presentation_label': modifier.get('presentation', {}).get('label', ''),
         }
 
-        if modifier['channel']['type'] == 'alias':
+        if modifier['channel'].get('type') == 'alias':
             info['target_channel'] = modifier['channel']['target_channel']
 
         # If there are formulas on this modifier, look for inputs to mult stage formulas.  We
@@ -662,7 +662,7 @@ class AssetCacheResolver(object):
             return None
 
         # If this points at an alias instance, resolve it.
-        if isinstance(target_node, ModifierAsset) and target_node.data['channel']['type'] == 'alias':
+        if isinstance(target_node, ModifierAsset) and target_node.data['channel'].get('type') == 'alias':
             target_channel_url = DSONURL(target_node.data['target_channel'])
             return self._resolve_url_to_property(target_channel_url, target_node)
         elif isinstance(target_node, DSON.DSONNode) and target_node.get_value('channel/type') == 'alias':
@@ -760,7 +760,7 @@ class AssetCacheResolver(object):
 
                 return resolved_url
 
-            if modifier_info.data['channel']['type'] == 'alias':
+            if modifier_info.data['channel'].get('type') == 'alias':
                 continue
 
             if modifier_info.data['channel'].get('auto_follow'):
@@ -862,7 +862,7 @@ class AssetCacheResolver(object):
             if not isinstance(modifier, ModifierAsset):
                 continue
 
-            if modifier.data['channel']['type'] == 'alias':
+            if modifier.data['channel'].get('type') == 'alias':
                 continue
 
             properties_by_id[id(modifier)] = modifier
@@ -965,7 +965,7 @@ class AssetCacheResolver(object):
             if not isinstance(channel, ModifierAsset):
                 continue
         
-            if channel.data['channel']['type'] == 'alias':
+            if channel.data['channel'].get('type') == 'alias':
                 continue
 
             self.all_modifiers[channel.asset_url] = channel
@@ -1092,7 +1092,7 @@ class AssetCacheResolver(object):
             if not isinstance(modifier_info, ModifierAsset):
                 continue
             
-            if modifier_info.data['channel']['type'] == 'alias':
+            if modifier_info.data['channel'].get('type') == 'alias':
                 continue
 
             # Make a list of dynamic modifiers.  You can query this with asset_config.get_dynamic yourself,
@@ -1151,7 +1151,7 @@ class AssetCacheResolver(object):
                 if modifier is None:
                     continue
 
-                if modifier.data['channel']['type'] == 'alias':
+                if modifier.data['channel'].get('type') == 'alias':
                     target_channel_url = DSONURL(modifier.data['target_channel'])
                     modifier = self._resolve_url_to_property(target_channel_url, dson_node)
                 
