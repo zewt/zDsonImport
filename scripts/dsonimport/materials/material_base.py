@@ -286,6 +286,13 @@ class MaterialBase(object):
 
         return mh.remap_glossiness_to_roughness_for_texture(texture_node)
 
+    @property
+    def _uses_scatter(self):
+        """
+        Return True if this material uses scatter.
+        """
+        return False
+
     def register_texture(self, maya_texture_node):
         """
         Register that this material uses maya_texture_node.

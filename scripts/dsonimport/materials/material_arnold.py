@@ -149,13 +149,6 @@ class MaterialArnold(MaterialBase):
         material_layer = cls(dson_material=dson_material)
         return material_layer._uses_scatter
 
-    @property
-    def _uses_scatter(self):
-        """
-        Return True if this material uses scatter.
-        """
-        return False
-
 # PBR Metallicity gives this:
 # 
 # Refraction
