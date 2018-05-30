@@ -79,23 +79,31 @@ class UIState(object):
 
         self.current_modifier_info = self.asset_cache_resolver.get_modifier_info(self.asset_config)
 
-    def modifier_url_checked_state(self, modifier_url):
+    def modifier_url_checked_state(self, modifier_url, stack=None):
         """
         If a modifier is enabled by the user, return Qt.Qt.Checked.
         If a modifier is enabled because another modifier depends on it, return Qt.PartiallyChecked.
         If a modifier is disabled, return Qt.Qt.Unchecked.
         """
+        if stack is None:
+            stack = set()
+
         enabled_by_user = modifier_url in self.active_modifiers
         if enabled_by_user:
             return Qt.Qt.Checked 
 
-        if self.enforce_requirements:
-            # See if any modifiers which depend on this modifier are active.
-            required_by_urls = self.asset_cache_resolver.modifiers_required_by.get(modifier_url, set())
-            for required_by_url in required_by_urls:
-                if self.modifier_url_checked_state(required_by_url) != Qt.Qt.Unchecked:
-                    return Qt.Qt.PartiallyChecked
-                
+        if modifier_url not in stack and self.enforce_requirements:
+            try:
+                # Make sure we don't recurse endlessly if there are circular dependencies.
+                stack.add(modifier_url)
+
+                # See if any modifiers which depend on this modifier are active.
+                required_by_urls = self.asset_cache_resolver.modifiers_required_by.get(modifier_url, set())
+                for required_by_url in required_by_urls:
+                    if self.modifier_url_checked_state(required_by_url, stack=stack) != Qt.Qt.Unchecked:
+                        return Qt.Qt.PartiallyChecked
+            finally:
+                stack.remove(modifier_url)
         return Qt.Qt.Unchecked
 
     def modifier_url_dynamic_state(self, modifier_url):
