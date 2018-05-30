@@ -315,6 +315,11 @@ class AssetCache(object):
             data = dson_file.read()
             json_data = json.loads(data)
 
+            # Some asset files seem to be missing asset_info (corrupt files?)
+            if 'asset_info' not in json_data:
+                log.info('Ignoring asset with missing asset_info: %s', absolute_path)
+                return
+
             # Check again, in case the fast path check above failed.
             if json_data['asset_info'].get('type') != 'modifier':
                 return
