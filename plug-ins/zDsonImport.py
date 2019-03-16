@@ -4,6 +4,8 @@ from maya import OpenMaya as om
 import pymel.core as pm
 from pprint import pprint
 
+from dsonimport import maya_helpers
+
 gMainFileMenu = pm.language.melGlobals['gMainFileMenu']
 
 # Import only when a menu item is actually used, so we don't spend time during Maya
@@ -90,6 +92,7 @@ class PluginMenu(object):
 
 menu = PluginMenu()
 def initializePlugin(mobject):
+    maya_helpers.setup_logging()
     menu.add_menu_items()
 
 def uninitializePlugin(mobject):
