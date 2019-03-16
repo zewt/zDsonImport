@@ -336,7 +336,11 @@ class AssetCache(object):
                 # eg. "/path#modifier?value".
                 modifier_info[info['channel_path']] = info
 
-        scan_modifier()
+        try:
+            scan_modifier()
+        except IOError as e:
+            log.error('Error reading %s: %s' % (absolute_path, str(e)))
+            return False
 
         # Hack: If we're in Cygwin, convert the path to a Windows path.  Don't call cygpath, since
         # it would be very slow to call it for each file and we're not in a good place to batch it.
