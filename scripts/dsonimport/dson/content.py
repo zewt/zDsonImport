@@ -313,7 +313,11 @@ class AssetCache(object):
 
             # Read the full file.
             data = dson_file.read()
-            json_data = json.loads(data)
+            try:
+                json_data = json.loads(data)
+            except ValueError as e:
+                log.info('Error reading asset %s: %s.  Ignoring this asset.', absolute_path, str(e))
+                return
 
             # Some asset files seem to be missing asset_info (corrupt files?)
             if 'asset_info' not in json_data:
