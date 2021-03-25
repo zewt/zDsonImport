@@ -943,14 +943,14 @@ class DSONImporter(object):
 
         # If mesh_set contains any rigidity groups, set up their rigid transforms.
         rigidity_transforms = []
-        if 'rigidity/groups' in conformed_loaded_mesh.geom:
-            for rigidity_group in conformed_loaded_mesh.geom['rigidity/groups']:
-                try:
-                    rigidity_transform = RigidityTransform(rigidity_group, conformed_loaded_mesh, reference_target_mesh, deformed_target_mesh)
-                except MeshUnaffected:
-                    continue
-
-                rigidity_transforms.append(rigidity_transform)
+#        if 'rigidity/groups' in conformed_loaded_mesh.geom:
+#            for rigidity_group in conformed_loaded_mesh.geom['rigidity/groups']:
+#                try:
+#                    rigidity_transform = RigidityTransform(rigidity_group, conformed_loaded_mesh, reference_target_mesh, deformed_target_mesh)
+#                except MeshUnaffected:
+#                    continue
+#
+#                rigidity_transforms.append(rigidity_transform)
 
         # Use a blend shape to make the mesh follow the rigidity transforms.
         blend_shape = mh.BlendShapeDeformer([wrapped_mesh], 'BS_Rigid_%s' % conformed_loaded_mesh.name, origin='world')
